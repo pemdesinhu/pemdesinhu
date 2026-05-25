@@ -1,25 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>PORTAL INFORMASI PEMERINTAHAN DESA</title>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #ffffff;
+      font-family: Arial, sans-serif;
+    }
+
+    iframe {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      border: none;
+      background: #ffffff;
+    }
+
+    #fullscreenBtn {
+      position: fixed;
+      right: 12px;
+      bottom: 12px;
+      z-index: 9999;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 8px;
+      background: #1a73e8;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
 </head>
+
 <body>
-  <iframe 
+  <iframe
+    id="portalFrame"
     src="https://script.google.com/macros/s/AKfycbwzF_WxLzRJnIRAh9qS2wjI0u5MRFA5B82pWsAxdjjsEg4I-D-54kF1PwrUJNjejavj/exec"
-    width="100%"
-    height="100%"
-    allowfullscreen="true"
-    style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; border: none;">
+    title="Portal Informasi Pemerintahan Desa"
+    allow="fullscreen"
+    allowfullscreen>
   </iframe>
 
+  <button id="fullscreenBtn">Layar Penuh</button>
+
   <script>
-    window.onload = function() {
-      document.querySelector('iframe')
-        .requestFullscreen()
-        .catch((err) => {
-          console.error('Error attempting to enable full-screen mode:', err.message);
-        });
-    };
+    const button = document.getElementById('fullscreenBtn');
+
+    button.addEventListener('click', async function () {
+      try {
+        if (document.documentElement.requestFullscreen) {
+          await document.documentElement.requestFullscreen();
+          button.style.display = 'none';
+        } else {
+          alert('Mode layar penuh tidak didukung di browser ini. Silakan gunakan fitur Tambahkan ke Layar Utama.');
+        }
+      } catch (error) {
+        console.warn('Fullscreen gagal:', error.message);
+        alert('Browser menolak mode layar penuh. Silakan gunakan fitur Tambahkan ke Layar Utama.');
+      }
+    });
   </script>
 </body>
 </html>
